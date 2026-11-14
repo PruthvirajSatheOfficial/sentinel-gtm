@@ -5,7 +5,6 @@ import typing
 class Account(BaseModel):
     id: int
     name: str
-    email: str
     domain: str
     industry: typing.Optional[str] = None
     employee_count: typing.Optional[int] = None
