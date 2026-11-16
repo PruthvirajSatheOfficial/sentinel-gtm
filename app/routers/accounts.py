@@ -38,8 +38,8 @@ def update_account(account_id: int, account: AccountUpdateSchema , db : Session 
     db_account = db.query(AccountModel).filter(AccountModel.id == account_id).first()
     if db_account is None:
         raise HTTPException(status_code=404, detail="Account not found")
-    db_account = AccountModel(**account.model_dump(exclude_unset=True))
-    for key, value in db_account.items():
+    updated_account = account.model_dump(exclude_unset=True)
+    for key, value in updated_account.items():
         setattr(db_account, key, value)
     db.commit()
     db.refresh(db_account) 

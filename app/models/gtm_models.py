@@ -14,8 +14,8 @@ class Account(Base):
     employee_count: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.datetime.utcnow())
 
-    buying_intents: Mapped[List["BuyingIntent"]] = relationship("BuyingIntent", back_populates="account")
-    outreach_briefs: Mapped[List["OutreachBrief"]] = relationship("OutreachBrief", back_populates="account")
+    buying_intents: Mapped[List["BuyingIntent"]] = relationship("BuyingIntent", back_populates="account", cascade="all, delete-orphan")
+    outreach_briefs: Mapped[List["OutreachBrief"]] = relationship("OutreachBrief", back_populates="account", cascade="all, delete-orphan")
 
 class BuyingIntent(Base):
     __tablename__ = "buying_intents"
@@ -37,3 +37,4 @@ class OutreachBrief(Base):
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.datetime.utcnow())
 
     account: Mapped["Account"] = relationship("Account", back_populates="outreach_briefs")
+    

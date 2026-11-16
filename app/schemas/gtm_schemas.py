@@ -16,7 +16,8 @@ class Account(BaseModel):
     name: str
     domain: str
     industry: typing.Optional[str] = None
-
+    employee_count: typing.Optional[int] = None
+    created_at: datetime.datetime
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -42,5 +43,16 @@ class AccountUpdate(BaseModel):
     domain: Optional[str] = None
     industry: Optional[str] = None
     employee_count: Optional[int] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+class BuyingIntentCreate(BaseModel):
+    intent_score: int
+    intent_category: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+class OutreachBriefCreate(BaseModel):
+    brief_content: str
 
     model_config = ConfigDict(from_attributes=True)
