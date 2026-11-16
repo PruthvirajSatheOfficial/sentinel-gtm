@@ -1,16 +1,24 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 import datetime
 import typing
+from typing import List, Optional
+
+class AccountCreate(BaseModel):
+    name: str
+    domain: str
+    industry: Optional[str] = None
+    employee_count: typing.Optional[int] = None
+
+    model_config = ConfigDict(from_attributes=True)
 
 class Account(BaseModel):
     id: int
     name: str
     domain: str
     industry: typing.Optional[str] = None
-    employee_count: typing.Optional[int] = None
 
-    class Config:
-        orm_mode = True
+
+    model_config = ConfigDict(from_attributes=True)
 
 class BuyingIntent(BaseModel):
     id: int
@@ -19,8 +27,7 @@ class BuyingIntent(BaseModel):
     intent_category: str
     created_at: datetime.datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class OutreachBrief(BaseModel):
     id: int
@@ -28,5 +35,12 @@ class OutreachBrief(BaseModel):
     brief_content: str
     created_at: datetime.datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
+
+class AccountUpdate(BaseModel):
+    name: Optional[str] = None
+    domain: Optional[str] = None
+    industry: Optional[str] = None
+    employee_count: Optional[int] = None
+
+    model_config = ConfigDict(from_attributes=True)
