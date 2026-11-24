@@ -56,3 +56,7 @@ class OutreachBriefCreate(BaseModel):
     brief_content: str
 
     model_config = ConfigDict(from_attributes=True)
+
+class IntentListResponse(BaseModel):
+    intents: List[BuyingIntentCreate]
+    

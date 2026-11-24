@@ -8,3 +8,4 @@ rapidfuzz
 anthropic
 psycopg2-binary
 pytest.e
+google-genai
