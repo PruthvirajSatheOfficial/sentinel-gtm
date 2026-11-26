@@ -18,14 +18,11 @@ def get_buying_intents(account_id : int, db : Session = Depends(get_db)):
         raise HTTPException(status_code=404 , detail =f"Buying Intents for Account {account_id} Not Found")
     return db_buying_intents
 
-@router.post("/{account_id}", response_model=BuyingIntentSchema)
-def create_buying_intent(account_id : int, db: Session = Depends(get_db)):
+@router.post("/{account_id}", response_model=List[BuyingIntentSchema])
+def create_buying_intent(account_id: int, db: Session = Depends(get_db)):
     account = db.query(AccountModel).filter(AccountModel.id == account_id).first()
     if not account:
         raise HTTPException(status_code=404, detail="Account not found !!!")
-    buying_intents_list = generate_buying_intents(account)
 
-    db.add(buying_intents_list)
-    db.commit()
-    db.refresh(buying_intents_list)
+    buying_intents_list = generate_buying_intents(db, account)
     return buying_intents_list
