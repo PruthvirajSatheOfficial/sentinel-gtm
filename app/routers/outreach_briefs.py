@@ -20,7 +20,7 @@ def get_outreach_briefs(account_id: int, db: Session = Depends(get_db)):
     return db_outreach_briefs
 
 @router.post("/{account_id}", response_model=OutreachBriefSchema)
-def create_outreach_brief(account_id: int, outreach_brief: OutreachBriefSchema, db: Session = Depends(get_db)):
+def create_outreach_brief(account_id: int, db: Session = Depends(get_db)):
     account = db.query(AccountModel).filter(AccountModel.id == account_id).first()
     if not account:
         raise HTTPException(status_code=404, detail="Account not found")    
